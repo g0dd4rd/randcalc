@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <!-- link rel="stylesheet" href="dredwerkz.css" type="text/css" -->
+ <title>Rand Calc</title>
+
+ <!--
+  Copyright (C) 2015 Jiri Prajzner
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>. -->
+
+</head>
+<body>
+<h2>Rand Calc</h2>
+<!-- ===== OPERATIONS ===== -->
+<p>Select operations: 
+<input type="checkbox" id="plus" name="plus" value="+">
+<label for="plus">+</label>
+<input type="checkbox" id="minus" name="minus" value="-">
+<label for="minus">-</label>
+<input type="checkbox" id="multi" name="multi" value="*">
+<label for="multi">*</label>
+<input type="checkbox" id="divide" name="divide" value="/">
+<label for="divide">/</label>
+<input type="checkbox" id="negatives" name="negatives">
+<label for="negatives">Allow negative results</label>
+
+<!-- ===== RANGES ===== -->
+<p>Select range: 
+<input type="radio" id="ten" name="range" value="10">
+<label for="ten">10</label>
+<input type="radio" id="hundred" name="range" value="100">
+<label for="hundred">100</label>
+<input type="radio" id="thousand" name="range" value="1000">
+<label for="thousand">1000</label></p>
+
+<!-- ===== # OPERANDS ==== -->
+<p>Number of operands:
+<input type="radio" id="two" name="operands" value="2">
+<label for="two">2</label>
+<input type="radio" id="three" name="operands" value="3">
+<label for="three">3</label></p>
+
+<!-- ===== # EXAMPLES ===== -->
+<p>Number of examples: 
+<input type="number" id="examples" name="examples" min="1" max="1000" value="10">
+<label for="examples">(1-1000)</p>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+var operators = ["+", "-", "*", "/"];
+var operator1 = "+";
+var operator2 = "+"; 
+var plusChBox = document.getElementById("plus");
+var minusChBox = document.getElementById("minus");
+var multiChBox = document.getElementById("multi");
+var divideChBox = document.getElementById("divide");
+var operatorChBoxes = [plusChBox, minusChBox, multiChBox, divideChBox];
+var checked = [];
+for(var ch = 0; ch < operatorChBoxes.length; ch++) {
+  if(operatorChBoxes[ch].checked) {
+    checked.push(operators[ch]);
+  }
+}
+
+var operand1 = 0;
+var operand2 = 0;
+var operand3 = 0;
+var negatives = document.getElementById("negatives");
+var exampleElement = null;
+var example = "";
+
+var range = 10;
+var rangeRButtons = document.getElementsByName("range");
+for(var r = 0; r < rangeRButtons.length; r++) {
+  if(rangeRButtons[r].checked) {
+    range = rangeRButtons[r].value;
+  }
+}
+
+var numOfOperands = 2;
+var operands = document.getElementsByName("operands");
+for(var o = 0; o < operands.length; o++) {
+  if(operands[o].checked) {
+    numOfOperands = operands[o].value;
+  }
+}
+
+var numOfExamplesElement = document.getElementById("examples");
+var numOfExamples = numOfExamplesElement.value;
+for(var i = 0; i < numOfExamples; i++) {
+  operand1 = Math.floor(Math.random() * range);
+  operand2 = Math.floor(Math.random() * range);
+  operator1 = checked[Math.floor(Math.random() * checked.length)];
+  if(!negatives.checked) {
+    if(operand1 <= operand2 && operator1 == operators[1]) {
+      i -= 1;
+      continue;
+    }
+  }
+
+  exampleElement = document.createElement("p");
+  if(numOfOperands == 3) {
+    operator2 = checked[Math.floor(Math.random() * checked.length)];
+    operand3 = Math.floor(Math.random() * range);
+    if(!negatives.checked) {
+      if(operand2 <= operand3 && operator2 == operators[1]) {
+        i -= 1;
+        continue;
+      }
+    } 
+    example = document.createTextNode(operand1 +" "+ operator1 +" "+ operand2 +" "+ operator2 +" "+ operand3 +" = ");
+  } else {
+    example = document.createTextNode(operand1 +" "+ operator1 +" "+ operand2 + " = ");
+  }
+
+  exampleElement.appendChild(example);
+  document.body.appendChild(exampleElement);
+}
+</script>
+</body>
+</html>
+
