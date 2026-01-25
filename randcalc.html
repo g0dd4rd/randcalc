@@ -84,7 +84,7 @@ var example = "";
 
 var range = 10;
 var rangeRButtons = document.getElementsByName("range");
-for(var r = 0; r < rangeRButtons.length; r++) {
+for(let r = 0; r < rangeRButtons.length; r++) {
   if(rangeRButtons[r].checked) {
     range = rangeRButtons[r].value;
   }
@@ -92,7 +92,7 @@ for(var r = 0; r < rangeRButtons.length; r++) {
 
 var numOfOperands = 2;
 var operands = document.getElementsByName("operands");
-for(var o = 0; o < operands.length; o++) {
+for(let o = 0; o < operands.length; o++) {
   if(operands[o].checked) {
     numOfOperands = operands[o].value;
   }
@@ -100,7 +100,7 @@ for(var o = 0; o < operands.length; o++) {
 
 var numOfExamplesElement = document.getElementById("examples");
 var numOfExamples = numOfExamplesElement.value;
-for(var i = 0; i < numOfExamples; i++) {
+for(let i = 0; i < numOfExamples; i++) {
   operand1 = Math.floor(Math.random() * range);
   operand2 = Math.floor(Math.random() * range);
   operator1 = checked[Math.floor(Math.random() * checked.length)];
