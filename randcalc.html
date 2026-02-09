@@ -116,7 +116,7 @@ for(let i = 0; i < numOfExamples; i++) {
     operator2 = checked[Math.floor(Math.random() * checked.length)];
     operand3 = Math.floor(Math.random() * range);
     if(!negatives.checked) {
-      if(operand2 <= operand3 && operator2 == operators[1]) {
+      if((operand1 - operand2) < operand3 && operator2 == operators[1]) {
         i -= 1;
         continue;
       }
